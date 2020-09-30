@@ -1,0 +1,10 @@
+*.py[cod]
+.vscode
+.DS_Store
+.idea
+*.log
+
+data/calendar2016.json
+data/japanpoetry_ru.json
+
+Secrets.md
