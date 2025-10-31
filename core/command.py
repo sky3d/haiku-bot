@@ -12,6 +12,6 @@ def parse_command_id(text=''):
 
 
 def parse_command_params(text=''):
-    regexp = re.compile("/\w*(@\w*)*\s*([\s\S]*)", re.IGNORECASE)
+    regexp = re.compile(r"/\w*(@\w*)*\s*([\s\S]*)", re.IGNORECASE)
     result = regexp.match(text)
     return result.group(2) if is_command(text) else None

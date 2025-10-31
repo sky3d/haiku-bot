@@ -26,25 +26,28 @@ zip: clean
 	@echo "✓ function.zip создан"
 
 deploy:
-	@if [ -z "$$FUNCTION_NAME" ]; then \
-		echo "Установите переменные окружения:"; \
-		echo "  export FUNCTION_NAME=classic-haiku-bot"; \
-		echo "  export REGION=us-central1"; \
+	@if [ -z "$$TOKEN" ]; then \
+		echo "❌ Установите переменные окружения:"; \
+		echo "  export TOKEN=your_telegram_token"; \
+		echo "  export CALENDAR_IMAGE_HOST=https://your-image-host"; \
+		echo "  export VESNA_IMAGE_ENABLED=yes"; \
+		echo ""; \
+		echo "Пример:"; \
+		echo "  export TOKEN=1234567890:ABCdefGHIjklMNOpqrsTUVwxyz"; \
+		echo "  export CALENDAR_IMAGE_HOST=https://thumb.cloud.mail.ru/weblink/thumb/xw1/gzzE/11DsMfgaq"; \
+		echo "  export VESNA_IMAGE_ENABLED=yes"; \
 		exit 1; \
 	fi
-	gcloud functions deploy $$FUNCTION_NAME \
-		--gen2 \
+	@echo "🚀 Деплой classic-haiku-bot..."
+	gcloud functions deploy classic-haiku-bot \
 		--runtime=python312 \
-		--region=$$REGION \
+		--region=us-central1 \
 		--source=. \
 		--entry-point=handler \
 		--trigger-http \
 		--allow-unauthenticated \
-		--set-env-vars TOKEN="$$TOKEN",CALENDAR_IMAGE_HOST="$$CALENDAR_IMAGE_HOST"
+		--set-env-vars TOKEN="$$TOKEN",CALENDAR_IMAGE_HOST="$$CALENDAR_IMAGE_HOST",VESNA_IMAGE_ENABLED="$$VESNA_IMAGE_ENABLED"
 
 logs:
-	@if [ -z "$$FUNCTION_NAME" ]; then \
-		echo "Установите: export FUNCTION_NAME=classic-haiku-bot REGION=us-central1"; \
-		exit 1; \
-	fi
-	gcloud functions logs read $$FUNCTION_NAME --region=$$REGION --gen2 --limit=50
+	@echo "📋 Логи classic-haiku-bot..."
+	gcloud functions logs read classic-haiku-bot --region=us-central1 --limit=50
