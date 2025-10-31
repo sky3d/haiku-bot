@@ -6,8 +6,8 @@
 
 .env
 
-data/calendar2016.json
-data/japanpoetry_ru.json
+# Data files
+data/*.json
 
 function.zip
 Secrets.md
