@@ -2,6 +2,7 @@ from core.http_request import post_request
 from core.logger import log
 import bot.classic_haiku as jp
 from bot.jpcalendar2016 import find_calendar_haiku
+from bot.vesna86 import find_vesna_haiku
 from core.command import is_command, parse_command_id, parse_command_params
 from bot.description import BOT_START_INFO
 
@@ -16,6 +17,17 @@ def get_calendar2016(params):
     text = found[0]
     url = found[1]
     return '\n'.join([text, url])
+
+
+def get_vesna86(params):
+    found = find_vesna_haiku(params)
+    if not found:
+        return 'Пока не нашел 👻 Повторим?'
+    text = found[0]
+    url = found[1]
+    if url:
+        return '\n'.join([text, url])
+    return text
 
 
 def send_message(token, chat_id, text):
@@ -95,6 +107,9 @@ class TBot:
 
         if cmd_id == '/calendar':
             text = get_calendar2016(params)
+
+        if cmd_id == '/vesna86':
+            text = get_vesna86(params)
 
         if cmd_id == '/android':
             text = 'https://play.google.com/store/apps/details?id=edu.wbar.jpcalendar2016'
