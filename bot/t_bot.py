@@ -27,7 +27,7 @@ def send_message(token, chat_id, text):
     return post_request(url, values)
 
 
-class TBot(object):
+class TBot:
     def __init__(self, name, token):
         self.__name = name
         self.__token = token

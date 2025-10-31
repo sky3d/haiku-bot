@@ -4,6 +4,8 @@
 .idea
 *.log
 
+.env
+
 data/calendar2016.json
 data/japanpoetry_ru.json
 
